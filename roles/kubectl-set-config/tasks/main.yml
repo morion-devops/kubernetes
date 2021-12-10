@@ -1,0 +1,46 @@
+---
+
+- name: Create tmp dir
+  ansible.builtin.tempfile:
+    state: directory
+  register: certs_tmp_dir
+  delegate_to: localhost
+  become: false
+
+- name: Copy certs
+  ansible.builtin.fetch: 
+    src: '{{ item }}'
+    dest: '{{ certs_tmp_dir.path }}/'
+    flat: true
+  loop:
+    - /etc/kubernetes/ssl/ca.crt
+    - /etc/kubernetes/ssl/apiserver-kubelet-client.crt
+    - /etc/kubernetes/ssl/apiserver-kubelet-client.key
+
+- name: Add cluster
+  ansible.builtin.shell: 'kubectl config set-cluster k8s.portfolio.ms --server=https://192.168.121.103:6443 --certificate-authority={{ certs_tmp_dir.path }}/ca.crt --embed-certs=true'
+  delegate_to: localhost
+  become: false
+
+- name: Add user
+  ansible.builtin.shell: kubectl config set-credentials k8s.portfolio.ms --client-certificate={{ certs_tmp_dir.path }}/apiserver-kubelet-client.crt --client-key={{ certs_tmp_dir.path }}/apiserver-kubelet-client.key --embed-certs=true
+  delegate_to: localhost
+  become: false
+
+- name: Add context
+  ansible.builtin.shell: kubectl config set-context k8s.portfolio.ms --cluster=k8s.portfolio.ms --namespace=default --user=k8s.portfolio.ms
+  delegate_to: localhost
+  become: false
+  
+- name: Set default context
+  ansible.builtin.shell: kubectl config use-context k8s.portfolio.ms
+  delegate_to: localhost
+  become: false
+
+- name: Delete tmp dir
+  ansible.builtin.file:
+    state: absent
+    path: "{{ certs_tmp_dir.path }}"
+  register: certs_tmp_dir
+  delegate_to: localhost
+  become: false

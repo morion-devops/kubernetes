@@ -1,0 +1,9 @@
+---
+
+- hosts: kube_control_plane[0]
+  roles:
+    - { role: kubectl-set-config }
+
+- hosts: k8s_cluster
+  roles:
+    - { role: containerd-insecure-registry }

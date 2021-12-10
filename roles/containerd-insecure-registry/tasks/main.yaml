@@ -1,0 +1,16 @@
+---
+
+- name: add insecure registry
+  ansible.builtin.blockinfile:
+    path: /etc/containerd/config.toml
+    # insertafter: endpoint = ["https://registry-1.docker.io"]
+    block: |
+      [plugins."io.containerd.grpc.v1.cri".registry.mirrors."192.168.121.100:5000"]
+        endpoint = ["192.168.121.100:5000"]
+      [plugins."io.containerd.grpc.v1.cri".registry.configs."192.168.121.100:5000".tls]
+        insecure_skip_verify = true
+
+- name: restart containerd
+  ansible.builtin.service:
+    name: containerd
+    state: restarted
