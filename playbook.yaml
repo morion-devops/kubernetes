@@ -4,6 +4,6 @@
   roles:
     - { role: kubectl-set-config }
 
-- hosts: k8s_cluster
-  roles:
-    - { role: containerd-insecure-registry }
+# - hosts: k8s_cluster
+#   roles:
+#     - { role: containerd-insecure-registry }
