@@ -8,7 +8,7 @@ Also has two custom roles:
 
       > I have been [backported](https://github.com/kubernetes-sigs/kubespray/pull/8298) this feature in kubespray. So now kubespray supports insecure registries for containerd out of box.
 
-  1. kubectl-set-config**. kubespray has parameter `kubeconfig_localhost` which can copy kubeconfig to local machine. But I need more comfort way — I want to add parameters in my existed kubeconfig, and don't to have individual file. So I created role, that add this cluster in my existed kubeconfig-file.
+  1. **kubectl-set-config**. kubespray has parameter `kubeconfig_localhost` which can copy kubeconfig to local machine. But I need more comfort way — I want to add parameters in my existed kubeconfig, and don't to have individual file. So I created role, that add this cluster in my existed kubeconfig-file.
 
 
 ## How to provisioning:
