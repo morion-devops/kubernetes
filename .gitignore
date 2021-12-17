@@ -1,3 +1,8 @@
 .vagrant
 .directory
 credentials/
+.terraform
+terraform.tfstate*
+*.lock.hcl
+credentials/.gcp*
+.env

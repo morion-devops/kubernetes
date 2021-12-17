@@ -10,14 +10,24 @@ Also has two custom roles:
 
   1. **kubectl-set-config**. kubespray has parameter `kubeconfig_localhost` which can copy kubeconfig to local machine. But I need more comfort way — I want to add parameters in my existed kubeconfig, and don't to have individual file. So I created role, that add this cluster in my existed kubeconfig-file.
 
-
 ## How to provisioning:
 
-1. `vagrant up`
+1. Select provisioning way: `cd terraform && terraform apply` or `cd vagrant && vagrant up`
+
 1. `pip3 install -r kubespray/requirements.txt`
+
 1. `cd kubespray/inventory`
+
 1. `ln -s ../../ansible/inventory/mycluster mycluster`
+
 1. `cd ..`
-1. `ansible-playbook -i inventory/mycluster/hosts.ini  --become --become-user=root cluster.yml`
-1. `cd ..`
-1. `ansible-playbook -i inventory/mycluster/hosts.ini  --become --become-user=root playbook.yaml`
+
+1. For GCP: `ansible-playbook -i inventory/mycluster/inventory-gcp.yaml -u gcp_k8s --private-key ../credentials/.gcp_ssh --become --become-user=root cluster.yml`
+   
+   For Vagrant: `ansible-playbook -i inventory/mycluster/inventory-vagrant.ini  --become --become-user=root cluster.yml`
+
+1. `cd ../ansible`
+
+1. For GCP: `ansible-playbook -i inventory/mycluster/inventory-gcp.yaml -u gcp_k8s --private-key ../credentials/.gcp_ssh --become --become-user=root playbook.yaml`
+   
+   For Vagrant: `ansible-playbook -i inventory/mycluster/inventory-{gcp.yaml | vagrant.ini}  --become --become-user=root playbook.yaml`

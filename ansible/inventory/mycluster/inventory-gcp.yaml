@@ -1,0 +1,26 @@
+plugin: gcp_compute
+
+projects:
+  - "prefab-poetry-334607"
+
+regions:
+  - "europe-north1"
+
+hostnames:
+  - name
+
+compose:
+  # for private_address
+  ansible_host: networkInterfaces[0].accessConfigs[0].natIP
+
+filters:
+   - "labels.service_name = k8s"
+
+groups:
+  k8s_cluster: "labels['service_name'] == 'k8s'"
+  kube_control_plane: "labels['service_name'] == 'k8s' and labels['service_role'] == 'master'"
+  etcd: "labels['service_name'] == 'k8s' and labels['service_role'] == 'master'"
+  kube_node: "labels['service_name'] == 'k8s' and labels['service_role'] == 'node'"
+
+auth_kind: serviceaccount
+service_account_file: ../credentials/.gcp-creds.json
