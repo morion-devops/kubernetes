@@ -16,7 +16,7 @@ Also has two custom roles:
 1. `vagrant up`
 1. `pip3 install -r kubespray/requirements.txt`
 1. `cd kubespray/inventory`
-1. `ln -s ../../inventory/mycluster mycluster`
+1. `ln -s ../../ansible/inventory/mycluster mycluster`
 1. `cd ..`
 1. `ansible-playbook -i inventory/mycluster/hosts.ini  --become --become-user=root cluster.yml`
 1. `cd ..`
