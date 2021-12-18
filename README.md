@@ -36,4 +36,4 @@ Also has two custom roles:
 
 1. For GCP: `ansible-playbook -i inventory/mycluster/inventory-gcp.yaml -u gcp_k8s --private-key ../credentials/.gcp_ssh --become --become-user=root playbook.yaml`
    
-   For Vagrant: `ansible-playbook -i inventory/mycluster/inventory-{gcp.yaml | vagrant.ini}  --become --become-user=root playbook.yaml`
+   For Vagrant: `ansible-playbook -i inventory/mycluster/inventory-vagrant.ini  --become --become-user=root playbook.yaml`
