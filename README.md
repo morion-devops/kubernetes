@@ -12,7 +12,13 @@ Also has two custom roles:
 
 ## How to provisioning:
 
-1. Select provisioning way: `cd terraform && terraform apply` or `cd vagrant && vagrant up`
+1. Select provisioning way: GCP or Vagrant.
+
+1. `cp .env.example .env` and fill variables, relevant to your provisioning way
+
+1. `source .env`
+
+1. `cd terraform && terraform apply` or `cd vagrant && vagrant up` - depends on your provisioning way
 
 1. `pip3 install -r kubespray/requirements.txt`
 

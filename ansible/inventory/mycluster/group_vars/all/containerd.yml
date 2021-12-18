@@ -32,9 +32,8 @@
 ## Can be ipaddress and domain_name.
 ## example define mirror.registry.io or 172.19.16.11:5000
 ## Port number is also needed if the default HTTPS port is not used.
-# containerd_insecure_registries:
-#   - mirror.registry.io
-#   - 172.19.16.11:5000
+containerd_insecure_registries:
+  - "{{ lookup('env', 'REGISTRY_ADDRESS') }}"
 
 # containerd_registries:
 #   "docker.io": "https://registry-1.docker.io"
