@@ -100,7 +100,7 @@ resource "google_compute_instance" "k8s-node1" {
 # rules #
 #########
 resource "google_compute_firewall" "allow-posgtres" {
-  name    = "allow-posgtres"
+  name    = "allow-k8s"
   network = "default"
   allow {
     protocol = "tcp"
